@@ -7,6 +7,7 @@ const conexao = mysql.createConnection({
     database: "escola"
 });
 
+/*
 const nome1 = "Maria";
 const disciplina1 = "Matemática";
 
@@ -42,7 +43,7 @@ const disciplina3 = "Programação";
 
 const insert3 = "INSERT INTO professores(nome, disciplina) VALUES (?, ?)";
 
-conexao.query (insert1, [nome3, disciplina3], function(erro) {
+conexao.query (insert3, [nome3, disciplina3], function(erro) {
 
     if(erro) {
         console.log("Erro ao cadastrar Fernanda");
@@ -56,3 +57,36 @@ conexao.query (insert1, [nome3, disciplina3], function(erro) {
 
 const id = 2
 const deletar = 'DELETE FROM professores WHERE id = ?';
+
+conexao.query(deletar,[id], function(erro, resultado) {
+
+  if(erro) {
+        console.log("Erro ao excluir Professor.");
+        console.log(erro);
+    }
+    else if (resultado.affectedRows ===0) {
+        console.log("Professor não encontrado");
+    } else{
+        console.log("Professor excluido com sucesso!");
+    }
+
+    conexao.end();
+});*/
+
+const id = 20;
+const deletar = 'DELETE FROM professores WHERE id = ?';
+
+conexao.query(deletar,[id], function(erro, resultado) {
+
+  if(erro) {
+        console.log("Erro ao excluir Professor.");
+        console.log(erro);
+    }
+    else if (resultado.affectedRows ===0) {
+        console.log("Professor não encontrado");
+    } else{
+        console.log("Professor excluido com sucesso!");
+    }
+
+    conexao.end();
+});
