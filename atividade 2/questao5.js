@@ -52,27 +52,8 @@ conexao.query (insert3, [nome3, telefone3], function(erro) {
     }
 
     conexao.end();
-});
-*/
+});*/
 
-/*const id = 2;
-const deletar = 'DELETE FROM clientes WHERE id = ?';
-
-conexao.query(deletar,[id], function(erro, resultado) {
-
-  if(erro) {
-        console.log("Erro ao excluir cliente.");
-        console.log(erro);
-    }
-    else if (resultado.affectedRows ===0) {
-        console.log("cliente não encontrado");
-    } else{
-        console.log("cliente excluido com sucesso!");
-    }
-
-    conexao.end();
-});
-*/
 
 const id = 2;
 const deletar = 'DELETE FROM clientes WHERE id = ?';
@@ -91,3 +72,22 @@ conexao.query(deletar,[id], function(erro, resultado) {
 
     conexao.end();
 });
+
+
+/*const id = 2;
+const deletar = 'DELETE FROM clientes WHERE id = ?';
+
+conexao.query(deletar,[id], function(erro, resultado) {
+
+  if(erro) {
+        console.log("Erro ao excluir cliente.");
+        console.log(erro);
+    }
+    else if (resultado.affectedRows ===0) {
+        console.log("cliente não encontrado");
+    } else{
+        console.log("cliente excluido com sucesso!");
+    }
+
+    conexao.end();
+});*/
