@@ -67,7 +67,7 @@ conexao.query(deletar,[id], function(erro, resultado) {
 
     conexao.end();
 });
-*/
+
 const titulo4 = "Homem Aranha: Novo Dia";
 const ano4 = 2026;
 
