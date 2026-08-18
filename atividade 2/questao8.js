@@ -17,7 +17,7 @@ conexao.query (insert1, [nome1, professor1, aulas_semanais1], function(erro) {
 
     if(erro) {
         console.log("Erro ao cadastrar Banco de Dados ");
-        console.logo(erro);
+        console.log(erro);
     } else {
         console.log("Banco de dados cadastrado com sucesso");
     }
