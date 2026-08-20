@@ -17,7 +17,7 @@ function cadastrarAluno() {
     const endereco = readline.question("Digite o endereço do aluno: ");
     const matricula = readline.question("Digite a matrícula do aluno: ");
     const curso = readline.question("Digite o curso do aluno: ");
-    const serie = readline.question("Digite a Serie do aluno: ");
+    const serie = readline.question("Digite a serie do aluno: ");
 
     const insert = "INSERT INTO alunos (nome, email, endereco, matricula, curso, serie) VALUES (?, ?, ?, ?, ?, ?)";
     conexao.query(insert, [nome, email, endereco, matricula, curso, serie], function (erro) {
@@ -26,7 +26,7 @@ function cadastrarAluno() {
             console.log("Erro ao cadastrar aluno. ");
             console.log(erro);
         } else {
-            console.log("Aluno caastrado com sucesso. ");
+            console.log("Aluno cadastrado com sucesso. ");
         }
         menu();
     });
@@ -67,7 +67,11 @@ function listarAlunos() {
                 console.log(
                     aluno.id + " - " +
                     aluno.nome + " - " +
-                    aluno.email
+                    aluno.email + " - " +
+                    aluno.endereco + " - " +
+                    aluno.matricula + " - " +
+                    aluno.curso + " - " +
+                    aluno.serie
                 );
             });
         }
