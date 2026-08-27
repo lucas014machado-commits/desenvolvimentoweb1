@@ -32,6 +32,34 @@ function cadastrarAluno() {
     });
 }
 
+function alterarAluno() {
+    const id = readline.questionInt("Digite o ID do aluno que deseja atualizar: ");
+    const nome = readline.question("Digite o novo nome do aluno: ");
+    const email = readline.question("Digite o novo email do aluno: ");
+    const endereco = readline.question("Digite o novo endereco do aluno: ");
+    const matricula = readline.question("Digite a nova matricula do aluno: ");
+    const curso = readline.question("Digite o novo curso do aluno: ");
+    const serie = readline.question("Digite a nova serie do aluno: ");
+
+    const update = `
+        UPDATE alunos
+        SET nome = ?, email = ?, endereco = ?, matricula = ?, curso = ?, serie = ?
+        WHERE id = ?
+    `;
+
+    conexao.query(update, [nome, email, endereco, matricula, curso, serie, id], function (erro, resultado) {
+        if (erro) {
+            console.log("Erro ao atualizar o aluno.");
+            console.log(erro);
+        } else if (resultado.affectedRows === 0) {
+            console.log("Aluno nao encontrado.");
+        } else {
+            console.log("Aluno atualizado com sucesso!");
+        }
+        menu();
+    });
+}
+
 function excluirAluno() {
     const id = readline.questionInt("Digite o ID do aluno: ");
 
@@ -86,35 +114,30 @@ function menu() {
 
     console.log("\n===== MENU =====");
     console.log("1 - Cadastrar aluno");
-    console.log("2 - Excluir aluno");
-    console.log("3 - Listar alunos");
+    console.log("2 - Alterar aluno");
+    console.log("3 - Excluir aluno");
+    console.log("4 - Listar alunos");
     console.log("0 - Sair");
 
     const opcao = readline.questionInt("Escolha uma opcao: ");
 
     if (opcao === 1) {
-
         cadastrarAluno();
-
     } else if (opcao === 2) {
-
-        excluirAluno();
-
+        alterarAluno();
     } else if (opcao === 3) {
-
+        excluirAluno();
+    } else if (opcao === 4) {
         listarAlunos();
-
     } else if (opcao === 0) {
-
         console.log("Programa encerrado.");
         conexao.end();
-
     } else {
-
         console.log("Opcao invalida.");
         menu();
     }
 }
+
 menu();
 
 
