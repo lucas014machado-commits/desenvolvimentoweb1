@@ -27,6 +27,32 @@ function cadastrarJogo() {
     });
 }
 
+function alterarJogo() {
+    const id = readline.question("Digite o id do jogo que deseja alterar ");
+    const nome = readline.question("Digite o nome do jogo que deseja alterar ");
+    const genero = readline.question("Digite o genero do jogo que deseja alterar ");
+
+    const update = `
+        UPDATE jogos
+        SET nome = ?, genero = ?
+        WHERE id = ?
+        `;
+
+    conexao.query(update,[nome, genero, id], function (erro, resultado) {
+            if (erro) {
+                console.log("Erro ao atualizar jogo ");
+                console.log(erro);
+            } else if (resultado.affectedRows === 0) {
+                console.log("Jogo não encontrado ");
+
+            } else {
+                console.log("Jogo atualizado com sucesso ");
+            }
+        menu();    
+    });
+ }
+    
+
 function excluirJogo() {
     const id = readline.questionInt("Digite o ID do jogo: ");
 
@@ -72,8 +98,9 @@ function menu() {
 
     console.log("\n===== MENU =====");
     console.log("1 - Cadastrar jogo");
-    console.log("2 - Excluir jogo");
-    console.log("3 - Listar jogos");
+    console.log("2 - Alterar jogo");
+    console.log("3 - Excluir jogo");
+    console.log("4 - Listar jogos");
     console.log("0 - Sair");
 
     const opcao = readline.questionInt("Escolha uma opcao: ");
@@ -84,9 +111,13 @@ function menu() {
 
     } else if (opcao === 2) {
 
-        excluirJogo();
+        alterarJogo();
 
     } else if (opcao === 3) {
+
+        excluirJogo();
+
+    } else if (opcao === 4) {
 
         listarJogos();
 

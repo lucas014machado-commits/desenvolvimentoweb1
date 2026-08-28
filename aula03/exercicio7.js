@@ -27,6 +27,30 @@ function cadastrarFuncionario() {
     });
 }
 
+function alterarFuncionario() {
+    const id = readline.question("Digite o id do funcionário que deseja alterar ");
+    const nome = readline.question("Digite o nome do funcionário que deseja alterar ");
+    const cargo = readline.question("Digite o cargo do funcionário que deseja alterar ");
+
+    const update = `
+        UPDATE funcionarios
+        SET nome = ?, cargo = ?
+        WHERE id = ?
+        `;
+
+        conexao.query(update,[nome, cargo, id], function (erro, resultado) {
+            if (erro) {
+                console.log("Erro ao atualizar funcionário ");
+                console.log(erro);
+            } else if (resultado.affectedRows === 0) {
+                console.log("Funcionário não encontrado ");
+
+            } else {
+                console.log("Funcionário atualizado com sucesso ");
+            }
+        menu();    
+    });
+ }
 function excluirFuncionario() {
     const id = readline.questionInt("Digite o ID do funcionário: ");
 
@@ -82,8 +106,9 @@ function menu() {
 
     console.log("\n===== MENU =====");
     console.log("1 - Cadastrar funcionário");
-    console.log("2 - Excluir funcionário");
-    console.log("3 - Listar funcionários");
+    console.log("2 - Alterar funcionário");
+    console.log("3 - Excluir funcionário");
+    console.log("4 - Listar funcionários");
     console.log("0 - Sair");
 
     const opcao = readline.questionInt("Escolha uma opcao: ");
@@ -94,9 +119,13 @@ function menu() {
 
     } else if (opcao === 2) {
 
-        excluirFuncionario();
+        alterarFuncionario();
 
     } else if (opcao === 3) {
+
+        excluirFuncionario();
+
+    } else if (opcao === 4) {
 
         listarFuncionarios();
 

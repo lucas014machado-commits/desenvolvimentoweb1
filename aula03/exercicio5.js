@@ -27,6 +27,31 @@ function cadastrarCliente() {
     });
 }
 
+function alterarCliente() {
+    const id = readline.question("Digite o id do cliente que deseja alterar ");
+    const nome = readline.question("Digite o nome do cliente que deseja alterar ");
+    const telefone = readline.question("Digite o telefone do cliente que deseja alterar ");
+
+    const update = `
+        UPDATE clientes
+        SET nome = ?, telefone = ?
+        WHERE id = ?
+        `;
+
+    conexao.query(update,[nome, telefone, id], function (erro, resultado) {
+            if (erro) {
+                console.log("Erro ao atualizar cliente ");
+                console.log(erro);
+            } else if (resultado.affectedRows === 0) {
+                console.log("Cliente não encontrado ");
+
+            } else {
+                console.log("Cliente atualizado com sucesso ");
+            }
+        menu();    
+    });
+ }
+
 function excluirCliente() {
     const id = readline.questionInt("Digite o ID do cliente: ");
 
@@ -72,8 +97,9 @@ function menu() {
 
     console.log("\n===== MENU =====");
     console.log("1 - Cadastrar cliente");
-    console.log("2 - Excluir cliente");
-    console.log("3 - Listar clientes");
+    console.log("2 - Alterar cliente");
+    console.log("3 - Excluir cliente");
+    console.log("4 - Listar clientes");
     console.log("0 - Sair");
 
     const opcao = readline.questionInt("Escolha uma opcao: ");
@@ -84,9 +110,13 @@ function menu() {
 
     } else if (opcao === 2) {
 
-        excluirCliente();
+        alterarCliente();
 
     } else if (opcao === 3) {
+        
+        excluirCliente();
+
+    } else if (opcao === 4) {
 
         listarClientes();
 

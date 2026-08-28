@@ -27,6 +27,31 @@ function cadastrarLivro() {
     });
 }
 
+function alterarLivro() {
+    const id = readline.questionInt("Digite o id do livro que deseja alterar ");
+    const titulo = readline.question("Digite o título que deseja alterar ");
+    const autor = readline.question("Digite o autor que deseja alterar ");
+
+    const update = `         
+         UPDATE livros
+         SET titulo = ?, autor = ?
+         WHERE id = ?
+         `;
+
+    conexao.query(update,[titulo, autor, id], function (erro, resultado){
+        if(erro) {
+           console.log("Erro ao atualizar livro");
+           console.log(erro);
+        } else if (resultado.affectedRows === 0) {
+            console.log("Livro não encontrado");
+
+        } else {
+            console.log("Livro atualizado com sucesso ");
+        }
+        menu();
+    });
+}
+
 function excluirLivro() {
     const id = readline.questionInt("Digite o ID do livro: ");
 
@@ -72,8 +97,9 @@ function menu() {
 
     console.log("\n===== MENU =====");
     console.log("1 - Cadastrar livro");
-    console.log("2 - Excluir livro");
-    console.log("3 - Listar livros");
+    console.log("2 - Alterar livro")
+    console.log("3 - Excluir livro");
+    console.log("4 - Listar livros");
     console.log("0 - Sair");
 
     const opcao = readline.questionInt("Escolha uma opcao: ");
@@ -84,9 +110,13 @@ function menu() {
 
     } else if (opcao === 2) {
 
-        excluirLivro();
+        alterarLivro();
 
     } else if (opcao === 3) {
+
+        excluirLivro();
+
+    } else if (opcao === 4) {
 
         listarLivros();
 

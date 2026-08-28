@@ -27,6 +27,32 @@ function cadastrarFilme() {
     });
 }
 
+function alterarFilme() {
+    const id = readline.question("Digite o id do filme que deseja alterar ");
+    const titulo = readline.question("Digite o titulo do filme que deseja alterar ");
+    const ano = readline.questionInt("Digite o ano do filme que deseja alterar ");
+
+    const update = `
+        UPDATE filmes
+        SET titulo = ?, ano = ?
+        WHERE id = ?
+        `;
+
+    conexao.query(update,[titulo, ano, id], function (erro, resultado) {
+            if (erro) {
+                console.log("Erro ao atualizar filme ");
+                console.log(erro);
+            } else if (resultado.affectedRows === 0) {
+                console.log("Filme não encontrado ");
+
+            } else {
+                console.log("Filme atualizado com sucesso ");
+            }
+        menu();    
+    });
+ }
+
+
 function excluirFilme() {
     const id = readline.questionInt("Digite o ID do filme: ");
 
@@ -72,8 +98,9 @@ function menu() {
 
     console.log("\n===== MENU =====");
     console.log("1 - Cadastrar filme");
-    console.log("2 - Excluir filme");
-    console.log("3 - Listar filmes");
+    console.log("2 - Alterar filme");
+    console.log("3 - Excluir filme");
+    console.log("4 - Listar filmes");
     console.log("0 - Sair");
 
     const opcao = readline.questionInt("Escolha uma opcao: ");
@@ -84,9 +111,13 @@ function menu() {
 
     } else if (opcao === 2) {
 
-        excluirFilme();
+        alterarFilme();
 
     } else if (opcao === 3) {
+
+        excluirFilme();
+
+    } else if (opcao === 4) {
 
         listarFilmes();
 
