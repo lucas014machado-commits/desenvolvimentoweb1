@@ -27,6 +27,31 @@ function cadastrarEvento() {
     });
 }
 
+function alterarEvento() {
+    const id = readline.question("Digite o id do evento que deseja alterar ");
+    const nome = readline.question("Digite o nome do evento que deseja alterar ");
+    const data_evento = readline.question("Digite a data do evento que deseja alterar ");
+
+    const update = `
+        UPDATE eventos
+        SET nome = ?, data_evento = ?
+        WHERE id = ?
+        `;
+
+    conexao.query(update,[nome, data_evento, id], function (erro, resultado) {
+            if (erro) {
+                console.log("Erro ao atualizar evento ");
+                console.log(erro);
+            } else if (resultado.affectedRows === 0) {
+                console.log("Evento não encontrado ");
+
+            } else {
+                console.log("Evento atualizado com sucesso ");
+            }
+        menu();    
+    });
+ }
+
 function excluirEvento() {
     const id = readline.questionInt("Digite o ID do evento: ");
 
@@ -72,8 +97,9 @@ function menu() {
 
     console.log("\n===== MENU =====");
     console.log("1 - Cadastrar evento");
-    console.log("2 - Excluir evento");
-    console.log("3 - Listar eventos");
+    console.log("2 - Alterar evento");
+    console.log("3 - Excluir evento");
+    console.log("4 - Listar eventos");
     console.log("0 - Sair");
 
     const opcao = readline.questionInt("Escolha uma opcao: ");
@@ -84,9 +110,13 @@ function menu() {
 
     } else if (opcao === 2) {
 
-        excluirEvento();
+        alterarEvento();
 
     } else if (opcao === 3) {
+
+        excluirEvento();
+
+    } else if (opcao === 4) {
 
         listarEventos();
 

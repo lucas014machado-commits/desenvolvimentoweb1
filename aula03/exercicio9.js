@@ -33,6 +33,31 @@ function cadastrarTarefa() {
     });
 }
 
+function alterarTarefa() {
+    const id = readline.questionInt("Digite o ID da tarefa que deseja atualizar: ");
+    const descricao = readline.question("Digite a nova descrição da tarefa: ");
+    const responsavel = readline.question("Digite o novo responsável pela tarefa: ");   
+
+    const update = `
+        UPDATE tarefas
+        SET descricao = ?, responsavel = ?
+        WHERE id = ?
+        `;
+
+    conexao.query(update,[descricao, responsavel, id], function (erro, resultado) {
+            if (erro) {
+                console.log("Erro ao atualizar tarefa ");
+                console.log(erro);
+            } else if (resultado.affectedRows === 0) {
+                console.log("Tarefa não encontrada ");
+
+            } else {
+                console.log("Tarefa atualizada com sucesso ");
+            }
+        menu();    
+    });
+ }
+
 function excluirTarefa() {
     const id = readline.questionInt("Digite o ID da tarefa: ");
 
@@ -78,8 +103,9 @@ function menu() {
 
     console.log("\n===== MENU =====");
     console.log("1 - Cadastrar tarefa");
-    console.log("2 - Excluir tarefa");
-    console.log("3 - Listar tarefas");
+    console.log("2 - Alterar tarefa");
+    console.log("3 - Excluir tarefa");
+    console.log("4 - Listar tarefas");
     console.log("0 - Sair");
 
     const opcao = readline.questionInt("Escolha uma opcao: ");
@@ -90,9 +116,13 @@ function menu() {
 
     } else if (opcao === 2) {
 
-        excluirTarefa();
+        alterarTarefa();
 
     } else if (opcao === 3) {
+
+        excluirTarefa();
+
+    } else if (opcao === 4) {
 
         listarTarefas();
 

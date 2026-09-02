@@ -25,6 +25,29 @@ function cadastrarClube() {
     });
 }
 
+function alterarClube() {
+    const id = readline.questionInt("Digite o ID do clube que deseja atualizar: ");
+    const nome = readline.question("Digite o novo nome do clube: ");
+    const titulos = readline.questionInt("Digite a nova quantidade de titulos: ");      
+
+    const update = `
+        UPDATE clubes
+        SET nome = ?, titulos = ?
+        WHERE id = ?
+    `;
+
+    conexao.query(update, [nome, titulos, id], function(erro, resultado) {
+        if (erro) {
+            console.log("Erro ao atualizar clube: ", erro);
+        } else if (resultado.affectedRows === 0) {
+            console.log("Clube não encontrado.");
+        } else {
+            console.log("Clube atualizado com sucesso!");
+        }
+        menu();
+    });
+}
+
 function listarClubes() {
     const sql = "SELECT * FROM clubes ORDER BY titulos DESC";
 
@@ -89,8 +112,9 @@ function excluirClube() {
 function menu() {
     console.log("\n===== MENU FUTEBOL =====");
     console.log("1 - Cadastrar clube");
-    console.log("2 - Excluir clube");
-    console.log("3 - Listar clubes");
+    console.log("2 - Alterar clube");
+    console.log("3 - Excluir clube");
+    console.log("4 - Listar clubes");
     console.log("0 - Sair");
 
     const opcao = readline.questionInt("Escolha uma opcao: ");
@@ -98,8 +122,10 @@ function menu() {
     if (opcao === 1) {
         cadastrarClube();
     } else if (opcao === 2) {
-        excluirClube();
+        alterarClube();
     } else if (opcao === 3) {
+        excluirClube();
+    } else if (opcao === 4) {
         listarClubes();
     } else if (opcao === 0) {
         console.log("Programa encerrado.");
